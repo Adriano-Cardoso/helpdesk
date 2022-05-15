@@ -1,1 +1,16 @@
+com/adriano/helpedesk/domain/Chamado.class
+com/adriano/helpedesk/domain/Tecnico.class
+com/adriano/helpedesk/repository/ClienteRepository.class
 com/adriano/helpedesk/HelpedeskApplication.class
+com/adriano/helpedesk/domain/Pessoa.class
+com/adriano/helpedesk/config/SwaggerConfig.class
+com/adriano/helpedesk/controller/PessoaController.class
+com/adriano/helpedesk/domain/enums/Perfil.class
+com/adriano/helpedesk/repository/PessoaRepository.class
+com/adriano/helpedesk/domain/Chamado$ChamadoBuilder.class
+com/adriano/helpedesk/domain/enums/Status.class
+com/adriano/helpedesk/domain/Cliente.class
+com/adriano/helpedesk/domain/enums/Prioridade.class
+com/adriano/helpedesk/domain/Pessoa$PessoaBuilder.class
+com/adriano/helpedesk/repository/TecnicoRepository.class
+com/adriano/helpedesk/repository/ChamadoRepository.class
