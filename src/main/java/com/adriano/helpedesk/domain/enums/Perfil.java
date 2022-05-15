@@ -15,7 +15,7 @@ public enum Perfil {
     @Getter
     private String descricao;
 
-    public static Perfil toEnum(Integer codigo){
+    public static Perfil toEnum(Perfil codigo){
         if (codigo == null){
             return null;
         }
