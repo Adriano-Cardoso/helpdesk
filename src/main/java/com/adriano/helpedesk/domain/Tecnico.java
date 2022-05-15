@@ -3,7 +3,6 @@ package com.adriano.helpedesk.domain;
 import com.adriano.helpedesk.domain.enums.Perfil;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
-import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.Entity;
