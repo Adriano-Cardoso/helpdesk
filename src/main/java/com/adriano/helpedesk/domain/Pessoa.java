@@ -1,10 +1,14 @@
 package com.adriano.helpedesk.domain;
 
 import com.adriano.helpedesk.domain.enums.Perfil;
+import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
 
+import javax.persistence.*;
+import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.HashSet;
 import java.util.Set;
@@ -13,21 +17,41 @@ import java.util.stream.Collectors;
 @AllArgsConstructor
 @Getter
 @Setter
+@Builder
+@Entity
+@Table(name = "tb_pessoa")
 public class Pessoa {
 
-    private Long pessoaId;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "pessoa_id", nullable = false)
+    protected Long pessoaId;
 
-    private String nome;
+    @Column(name = "nome", length = 100, nullable = false)
+    protected String nome;
 
-    private String cpg;
+    @Column(unique = true)
+    protected String cpf;
 
-    private String email;
+    @Column(name = "email", nullable = false, unique = true)
+    protected String email;
 
-    private String senha;
+    @Column(name = "senha", nullable = false)
+    protected String senha;
 
-    private Set<Integer> perfis = new HashSet<>();
+    @ElementCollection(fetch = FetchType.EAGER)
+    @CollectionTable(name = "Perfis")
+    protected Set<Integer> perfis = new HashSet<>();
 
-    private LocalDate localDate = LocalDate.now();
+    @JsonFormat(pattern = "dd/MM/yyyy")
+    @Column(name = "data_criacao", nullable = false)
+    protected LocalDate dataCriacao;
+
+
+    @PrePersist
+    public void prePersist() {
+        this.dataCriacao = LocalDate.now();
+    }
 
     public Pessoa(){
         super();
@@ -42,3 +66,6 @@ public class Pessoa {
         this.perfis.add(perfil.getCodigo());
     }
 }
+
+
+
