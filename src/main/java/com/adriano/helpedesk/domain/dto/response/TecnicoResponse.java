@@ -1,47 +1,34 @@
 package com.adriano.helpedesk.domain.dto.response;
 
-import com.adriano.helpedesk.domain.enums.Perfil;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.*;
 
-import javax.persistence.*;
+
 import java.time.LocalDate;
+import java.util.HashSet;
+import java.util.Set;
 
-@AllArgsConstructor
+
 @NoArgsConstructor
-@Builder
-public class TecncicoResponse {
+@Getter
+@Setter
+public class TecnicoResponse {
 
-    @Getter
-    @Setter
-    private Long tecnicoId;
+    private Long id;
 
-    @Getter
-    @Setter
     private String nome;
 
-    @Getter
-    @Setter
     private String cpf;
 
-    @Getter
-    @Setter
     private String email;
 
-    @Getter
-    @Setter
     private String senha;
 
-    @Getter
-    @Setter
-    @Enumerated(EnumType.STRING)
-    private Perfil perfil;
+    @JsonFormat(pattern = "dd/MM/yyyy")
+    protected LocalDate dataCriacao = LocalDate.now();
+    
+    private Set<String> perfis = new HashSet<>();
 
-    @Getter
-    @Setter
-    private LocalDate dataCriacao;
 
-    @Getter
-    @Setter
-    private Long chamadosId;
+
 }

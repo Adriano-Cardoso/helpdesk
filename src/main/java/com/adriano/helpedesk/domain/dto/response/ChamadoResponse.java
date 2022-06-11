@@ -1,47 +1,36 @@
 package com.adriano.helpedesk.domain.dto.response;
 
-import com.adriano.helpedesk.domain.enums.Perfil;
+import com.adriano.helpedesk.domain.enums.Prioridade;
+import com.adriano.helpedesk.domain.enums.Status;
+import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.*;
 
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
 import java.time.LocalDate;
 
 @AllArgsConstructor
 @NoArgsConstructor
+@Getter
+@Setter
 @Builder
 public class ChamadoResponse {
 
-    @Getter
-    @Setter
-    private Long tecnicoId;
+    private Long chamadoId;
 
-    @Getter
-    @Setter
-    private String nome;
+    @JsonFormat(pattern = "dd/MM/yyyy")
+    private LocalDate dataAbertura;
 
-    @Getter
-    @Setter
-    private String cpf;
+    @JsonFormat(pattern = "dd/MM/yyyy")
+    private LocalDate dataFechamento;
 
-    @Getter
-    @Setter
-    private String email;
+    private Prioridade prioridade;
 
-    @Getter
-    @Setter
-    private String senha;
+    private Status status;
 
-    @Getter
-    @Setter
-    @Enumerated(EnumType.STRING)
-    private Perfil perfil;
+    private String titulo;
 
-    @Getter
-    @Setter
-    private LocalDate dataCriacao;
+    private String obeservacoes;
 
-    @Getter
-    @Setter
-    private Long chamadosId;
+    private TecnicoResponse tecnicoResponse;
+
+    private ClienteResponse clienteResponse;
 }
