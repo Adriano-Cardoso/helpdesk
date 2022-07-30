@@ -1,6 +1,7 @@
 package com.adriano.helpedesk.domain.enums;
 
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Getter;
 
 @AllArgsConstructor
