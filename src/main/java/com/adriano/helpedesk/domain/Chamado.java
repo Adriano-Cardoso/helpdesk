@@ -1,6 +1,7 @@
 package com.adriano.helpedesk.domain;
 
 import com.adriano.helpedesk.domain.dto.request.ChamadoRequest;
+import com.adriano.helpedesk.domain.dto.request.ChamadoUpdateRequest;
 import com.adriano.helpedesk.domain.dto.response.ChamadoResponse;
 import com.adriano.helpedesk.domain.enums.Perfil;
 import com.adriano.helpedesk.domain.enums.Prioridade;
@@ -58,7 +59,8 @@ public class Chamado {
         this.dataAbertura = LocalDate.now();
     }
 
-    public Chamado(Long id, Prioridade prioridade, Status status, String titulo, LocalDate dataFechamento, String obeservacoes, Tecnico tecnico, Cliente cliente) {
+    public Chamado(Long id, Prioridade prioridade, Status status, String titulo, LocalDate dataFechamento,
+                   String obeservacoes, Tecnico tecnico, Cliente cliente) {
         this.id = id;
         this.prioridade = prioridade;
         this.status = status;
@@ -86,11 +88,14 @@ public class Chamado {
                 .dataAbertura(this.dataAbertura)
                 .dataFechamento(this.dataFechamento)
                 .prioridade(this.prioridade)
-                .status(this.status)
+                .status(this.status.getCodigo())
                 .titulo(this.titulo)
-                .obeservacoes(this.getObservacoes()).build();
-//                .tecnicoResponse(this.getTecnico().toResponse())
-//                .clienteResponse(this.cliente.toResponse()).build();
+                .observacoes(this.getObservacoes())
+                .tecnicoResponse(this.tecnico.getPessoaId())
+                .clienteResponse(this.cliente.getPessoaId())
+                .nomeCliente(this.cliente.getNome())
+                .nomeTecnico(this.tecnico.getNome())
+                .build();
     }
 
     public void addCliente(Cliente cliente) {
@@ -107,5 +112,11 @@ public class Chamado {
                 .filter(perfil -> perfil.equals(Perfil.TECNICO))
                 .forEach(perfil -> this.tecnico.getPessoaId().equals(tecnico.getPessoaId()));
 
+    }
+
+    public void update(ChamadoUpdateRequest chamadoUpdateRequest){
+        this.dataFechamento = chamadoUpdateRequest.getDataFechamento();
+        this.prioridade = chamadoUpdateRequest.getPrioridade();
+        this.observacoes = chamadoUpdateRequest.getObeservacoes();
     }
 }

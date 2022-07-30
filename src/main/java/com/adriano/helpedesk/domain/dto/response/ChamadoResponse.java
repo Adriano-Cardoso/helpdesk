@@ -1,5 +1,6 @@
 package com.adriano.helpedesk.domain.dto.response;
 
+import com.adriano.helpedesk.domain.Chamado;
 import com.adriano.helpedesk.domain.enums.Prioridade;
 import com.adriano.helpedesk.domain.enums.Status;
 import com.fasterxml.jackson.annotation.JsonFormat;
@@ -24,13 +25,31 @@ public class ChamadoResponse {
 
     private Prioridade prioridade;
 
-    private Status status;
+    private Integer status;
 
     private String titulo;
 
-    private String obeservacoes;
+    private String observacoes;
 
-    private TecnicoResponse tecnicoResponse;
+    private Long tecnicoResponse;
 
-    private ClienteResponse clienteResponse;
+    private Long clienteResponse;
+
+    private String nomeCliente;
+
+    private String nomeTecnico;
+
+    public ChamadoResponse(Chamado chamado) {
+        this.chamadoId = chamado.getId();
+        this.dataAbertura = chamado.getDataAbertura();
+        this.dataFechamento = chamado.getDataFechamento();
+        this.prioridade = chamado.getPrioridade();
+        this.status = chamado.getStatus().getCodigo();
+        this.titulo = chamado.getTitulo();
+        this.observacoes = chamado.getObservacoes();
+        this.tecnicoResponse = chamado.getTecnico().getPessoaId();
+        this.clienteResponse = chamado.getCliente().getPessoaId();
+        this.nomeCliente = chamado.getCliente().getNome();
+        this.nomeTecnico = chamado.getTecnico().getNome();
+    }
 }

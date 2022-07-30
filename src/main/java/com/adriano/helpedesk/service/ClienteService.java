@@ -1,10 +1,12 @@
 package com.adriano.helpedesk.service;
 
-import com.adriano.helpedesk.domain.Tecnico;
+import com.adriano.helpedesk.domain.Cliente;
+import com.adriano.helpedesk.domain.dto.request.ClienteRequest;
 import com.adriano.helpedesk.domain.dto.request.TecnicoRequest;
+import com.adriano.helpedesk.domain.dto.response.ClienteResponse;
 import com.adriano.helpedesk.domain.dto.response.TecnicoResponse;
 import com.adriano.helpedesk.exception.Message;
-import com.adriano.helpedesk.repository.TecnicoRepository;
+import com.adriano.helpedesk.repository.ClienteRepository;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -21,61 +23,60 @@ import java.util.stream.Collectors;
 @Slf4j
 public class ClienteService {
 
-    private TecnicoRepository tecnicoRepository;
+    private ClienteRepository clienteRepository;
 
-    public TecnicoResponse findById(Long tecnicoId) {
-        Tecnico tecnico = this.tecnicoRepository.findById(tecnicoId)
+    public ClienteResponse findById(Long clienteId) {
+        Cliente cliente = this.clienteRepository.findById(clienteId)
                 .orElseThrow(() -> Message.ID_NOT_FOUND_TECNICO.asBusinessException());
 
-        log.info("method=findById tecnicoId={}", tecnicoId);
+        log.info("method=findById clienteId={}", clienteId);
 
-
-        return tecnico.toResponse(tecnico);
+        return cliente.toResponse(cliente);
     }
 
 
-    public TecnicoResponse createTecnico(@Valid TecnicoRequest tecnicoRequest) {
+    public ClienteResponse createCliente(@Valid ClienteRequest clienteRequest) {
 
-        this.tecnicoRepository.findByCpf(tecnicoRequest.getCpf()).ifPresent(c -> {
+        this.clienteRepository.findByCpf(clienteRequest.getCpf()).ifPresent(c -> {
             throw Message.EXISTING_CPF.asBusinessException();
         });
 
-        Tecnico tecnico = Tecnico.of(tecnicoRequest);
+        Cliente cliente = Cliente.of(clienteRequest);
 
-        tecnico = this.tecnicoRepository.save(tecnico);
+        cliente = this.clienteRepository.save(cliente);
 
-        log.info("method=createTecnico pessoaId={} nome={} cpf={} email={} senha={} dataCriacao={} perfis={}",
-                tecnico.getPessoaId(), tecnico.getNome(), tecnico.getCpf(), tecnico.getEmail(), tecnico.getSenha(), tecnico.getDataCriacao(), tecnico.getPerfis());
+        log.info("method=createCliente pessoaId={} nome={} cpf={} email={} senha={} dataCriacao={} perfis={}",
+                cliente.getPessoaId(), cliente.getNome(), cliente.getCpf(), cliente.getEmail(), cliente.getSenha(), cliente.getDataCriacao(), cliente.getPerfis());
 
 
-        return tecnico.toResponse(tecnico);
+        return cliente.toResponse(cliente);
     }
 
-    public List<TecnicoResponse> findAllTecnico() {
-        List<Tecnico> list = this.tecnicoRepository.findAll();
+    public List<ClienteResponse> findAllCliente() {
+        List<Cliente> list = this.clienteRepository.findAll();
         return list.stream().map(obj -> obj.toResponse(obj)).collect(Collectors.toList());
     }
 
     @Transactional
-    public TecnicoResponse update(Long tecnicoId, @Valid TecnicoRequest tecnicoRequest){
-        Tecnico tecnico = this.tecnicoRepository.findById(tecnicoId)
+    public ClienteResponse update(Long tecnicoId, @Valid ClienteRequest clienteRequest){
+        Cliente cliente = this.clienteRepository.findById(tecnicoId)
                 .orElseThrow(() -> Message.ID_NOT_FOUND_TECNICO.asBusinessException());
 
         log.info("method=findById tecnicoId={}", tecnicoId);
 
-        tecnico.update(tecnicoRequest);
+        cliente.update(clienteRequest);
 
-        return tecnico.toResponse(tecnico);
+        return cliente.toResponse(cliente);
     }
 
     public void delete(Long tecnicoId) {
-        Tecnico tecnico = this.tecnicoRepository.findById(tecnicoId)
+        Cliente tecnico = this.clienteRepository.findById(tecnicoId)
                 .orElseThrow(() -> Message.ID_NOT_FOUND_TECNICO.asBusinessException());
         log.info("method=findById tecnicoId={}", tecnicoId);
 
         log.info("method=delete id={}", tecnicoId);
 
-        this.tecnicoRepository.delete(tecnico);
+        this.clienteRepository.delete(tecnico);
 
     }
 

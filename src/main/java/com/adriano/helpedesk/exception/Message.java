@@ -6,6 +6,8 @@ import org.springframework.http.HttpStatus;
 public enum Message {
 
     ID_NOT_FOUND_TECNICO("O video nao foi encontrado", HttpStatus.NOT_FOUND),
+    ID_NOT_FOUND_CLIENTE("O cliente nao foi encontrado", HttpStatus.NOT_FOUND),
+    ID_NOT_FOUND_CHAMADO("O chamado nao foi encontrado", HttpStatus.NOT_FOUND),
     EXISTING_CPF("O CPF digitado já existe me nossa base de dados", HttpStatus.BAD_REQUEST);
 
     private String value;

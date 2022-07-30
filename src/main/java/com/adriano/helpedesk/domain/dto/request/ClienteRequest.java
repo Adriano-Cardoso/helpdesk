@@ -30,7 +30,7 @@ public class ClienteRequest {
 
     protected  Long chamadoId;
 
-    protected Set<String> perfis = new HashSet<>();
+    protected Set<Integer> perfis = new HashSet<>();
 
 //    @JsonFormat(pattern = "dd/MM/yyyy")
 //    protected LocalDate dataCriacao = LocalDate.now();

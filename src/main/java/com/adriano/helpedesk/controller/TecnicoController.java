@@ -2,7 +2,6 @@ package com.adriano.helpedesk.controller;
 
 import com.adriano.helpedesk.domain.dto.request.TecnicoRequest;
 import com.adriano.helpedesk.domain.dto.response.TecnicoResponse;
-import com.adriano.helpedesk.exception.BusinessException;
 import com.adriano.helpedesk.service.TecnicoService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;

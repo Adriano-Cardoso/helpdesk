@@ -2,6 +2,7 @@ package com.adriano.helpedesk.domain;
 
 import com.adriano.helpedesk.domain.dto.request.ClienteRequest;
 import com.adriano.helpedesk.domain.dto.response.ClienteResponse;
+import com.adriano.helpedesk.domain.enums.Perfil;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
 
@@ -48,7 +49,25 @@ public class Cliente extends Pessoa {
 
     }
 
+    public ClienteResponse toResponse(Cliente cliente){
+        ClienteResponse clienteResponse = new ClienteResponse();
+        clienteResponse.setId(cliente.getPessoaId());
+        clienteResponse.setNome(cliente.getNome());
+        clienteResponse.setCpf(cliente.getCpf());
+        clienteResponse.setEmail(cliente.getEmail());
+        clienteResponse.setSenha(cliente.getSenha());
+        clienteResponse.setPerfis(cliente.getPerfis());
+        addPerfil(Perfil.TECNICO);
 
+        return clienteResponse;
+    }
+
+    public void update(ClienteRequest clienteRequest){
+        this.nome = clienteRequest.getNome();
+        this.cpf = clienteRequest.getCpf();
+        this.email = clienteRequest.getEmail();
+        this.senha = clienteRequest.getSenha();
+    }
 
 
 }

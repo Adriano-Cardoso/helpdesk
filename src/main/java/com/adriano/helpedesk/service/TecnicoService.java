@@ -3,6 +3,7 @@ package com.adriano.helpedesk.service;
 import com.adriano.helpedesk.domain.Tecnico;
 import com.adriano.helpedesk.domain.dto.request.TecnicoRequest;
 import com.adriano.helpedesk.domain.dto.response.TecnicoResponse;
+
 import com.adriano.helpedesk.exception.Message;
 import com.adriano.helpedesk.repository.TecnicoRepository;
 import lombok.AllArgsConstructor;
@@ -57,7 +58,7 @@ public class TecnicoService {
     }
 
     @Transactional
-    public TecnicoResponse update(Long tecnicoId, @Valid TecnicoRequest tecnicoRequest){
+    public TecnicoResponse update(Long tecnicoId, @Valid TecnicoRequest tecnicoRequest) {
         Tecnico tecnico = this.tecnicoRepository.findById(tecnicoId)
                 .orElseThrow(() -> Message.ID_NOT_FOUND_TECNICO.asBusinessException());
 

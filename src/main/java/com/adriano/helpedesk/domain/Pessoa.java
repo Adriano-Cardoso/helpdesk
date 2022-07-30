@@ -1,8 +1,5 @@
 package com.adriano.helpedesk.domain;
 
-import com.adriano.helpedesk.domain.dto.request.TecnicoRequest;
-import com.adriano.helpedesk.domain.dto.response.PessoaResponse;
-import com.adriano.helpedesk.domain.dto.response.TecnicoResponse;
 import com.adriano.helpedesk.domain.enums.Perfil;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.*;
@@ -38,7 +35,7 @@ public abstract class Pessoa implements Serializable {
 
     @ElementCollection(fetch = FetchType.EAGER)
     @CollectionTable(name = "PERFIS")
-    protected Set<String> perfis = new HashSet<String>();
+    protected Set<Integer> perfis = new HashSet<Integer>();
 
     @JsonFormat(pattern = "dd/MM/yyyy")
     protected LocalDate dataCriacao = LocalDate.now();
@@ -49,7 +46,7 @@ public abstract class Pessoa implements Serializable {
     }
 
     public void addPerfil(Perfil perfil) {
-        this.perfis.add(perfil.getDescricao());
+        this.perfis.add(perfil.getCodigo());
     }
 
 
@@ -63,26 +60,7 @@ public abstract class Pessoa implements Serializable {
         addPerfil(Perfil.CLIENTE);
     }
 
-    public static Tecnico of(TecnicoRequest tecnicoRequest){
-        Tecnico tecnico = new Tecnico();
-        tecnico.nome = tecnicoRequest.getNome();
-        tecnico.cpf = tecnicoRequest.getCpf();
-        tecnico.email = tecnicoRequest.getEmail();
-        tecnico.senha = tecnicoRequest.getSenha();
-
-        return tecnico;
-    }
-
-    public PessoaResponse toResponse(){
-        PessoaResponse pessoaResponse = new PessoaResponse();
-        pessoaResponse.setPessoaId(this.pessoaId);
-        pessoaResponse.setNome(this.nome);
-        pessoaResponse.setCpf(this.cpf);
-        pessoaResponse.setEmail(this.nome);
-        pessoaResponse.setSenha(this.senha);
-        pessoaResponse.setPerfis(this.perfis);
 
 
-        return pessoaResponse;
-    }
+
 }
