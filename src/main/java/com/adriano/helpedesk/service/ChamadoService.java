@@ -1,5 +1,6 @@
 package com.adriano.helpedesk.service;
 
+
 import com.adriano.helpedesk.domain.Chamado;
 import com.adriano.helpedesk.domain.Cliente;
 import com.adriano.helpedesk.domain.Tecnico;
@@ -13,7 +14,6 @@ import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
 import javax.validation.Valid;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -25,18 +25,18 @@ public class ChamadoService {
 
     public ChamadoResponse save(ChamadoRequest chamadoRequest) {
 
-        Chamado chamado = Chamado.of(chamadoRequest);
+        Chamado called = Chamado.of(chamadoRequest);
 
         Cliente cliente = new Cliente();
 
         Tecnico tecnico = new Tecnico();
 
-        chamado.addCliente(cliente);
+        called.addCliente(cliente);
 
-        chamado.addTecnico(tecnico);
+        called.addTecnico(tecnico);
 
-        this.chamadoRepository.save(chamado);
-        return chamado.toResponse() ;
+        this.chamadoRepository.save(called);
+        return called.toResponse() ;
     }
 
     public ChamadoResponse findByIdChamado(Long chamadoId) {

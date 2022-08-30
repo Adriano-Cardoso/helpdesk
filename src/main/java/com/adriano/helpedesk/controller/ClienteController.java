@@ -17,7 +17,7 @@ import java.util.List;
 @Api(value = "helpdesk Endpoint", description = "HelpDesk", tags = { "cliente Endpoint" })
 @RestController
 @AllArgsConstructor
-@RequestMapping("/cliente")
+@RequestMapping("/clientes")
 public class ClienteController {
 
 

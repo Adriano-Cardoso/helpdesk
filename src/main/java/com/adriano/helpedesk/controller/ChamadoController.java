@@ -17,7 +17,7 @@ import java.util.List;
 @Api(value = "helpdesk Endpoint", description = "HelpDesk", tags = {"Chamados Endpoint"})
 @RestController
 @AllArgsConstructor
-@RequestMapping("/chamado")
+@RequestMapping("/chamados")
 public class ChamadoController {
 
 

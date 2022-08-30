@@ -24,7 +24,7 @@ public class Tecnico extends Pessoa{
 
     @JsonIgnore
     @OneToMany(mappedBy = "tecnico")
-    private List<Chamado> chamados = new ArrayList<>();
+    private List<Chamado> calleds = new ArrayList<>();
 
     @PrePersist
     public void prePersist() {

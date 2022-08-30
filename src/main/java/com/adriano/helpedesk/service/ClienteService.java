@@ -2,13 +2,12 @@ package com.adriano.helpedesk.service;
 
 import com.adriano.helpedesk.domain.Cliente;
 import com.adriano.helpedesk.domain.dto.request.ClienteRequest;
-import com.adriano.helpedesk.domain.dto.request.TecnicoRequest;
 import com.adriano.helpedesk.domain.dto.response.ClienteResponse;
-import com.adriano.helpedesk.domain.dto.response.TecnicoResponse;
 import com.adriano.helpedesk.exception.Message;
-import com.adriano.helpedesk.repository.ClienteRepository;
+import com.adriano.helpedesk.repository.ClientRepository;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.validation.annotation.Validated;
 
@@ -23,10 +22,12 @@ import java.util.stream.Collectors;
 @Slf4j
 public class ClienteService {
 
-    private ClienteRepository clienteRepository;
+    private ClientRepository clientRepository;
+
+    private BCryptPasswordEncoder encoder;
 
     public ClienteResponse findById(Long clienteId) {
-        Cliente cliente = this.clienteRepository.findById(clienteId)
+        Cliente cliente = this.clientRepository.findById(clienteId)
                 .orElseThrow(() -> Message.ID_NOT_FOUND_TECNICO.asBusinessException());
 
         log.info("method=findById clienteId={}", clienteId);
@@ -37,13 +38,13 @@ public class ClienteService {
 
     public ClienteResponse createCliente(@Valid ClienteRequest clienteRequest) {
 
-        this.clienteRepository.findByCpf(clienteRequest.getCpf()).ifPresent(c -> {
+        this.clientRepository.findByCpf(clienteRequest.getCpf()).ifPresent(c -> {
             throw Message.EXISTING_CPF.asBusinessException();
         });
 
         Cliente cliente = Cliente.of(clienteRequest);
-
-        cliente = this.clienteRepository.save(cliente);
+        cliente.setSenha(encoder.encode(cliente.getSenha()));
+        cliente = this.clientRepository.save(cliente);
 
         log.info("method=createCliente pessoaId={} nome={} cpf={} email={} senha={} dataCriacao={} perfis={}",
                 cliente.getPessoaId(), cliente.getNome(), cliente.getCpf(), cliente.getEmail(), cliente.getSenha(), cliente.getDataCriacao(), cliente.getPerfis());
@@ -53,13 +54,13 @@ public class ClienteService {
     }
 
     public List<ClienteResponse> findAllCliente() {
-        List<Cliente> list = this.clienteRepository.findAll();
+        List<Cliente> list = this.clientRepository.findAll();
         return list.stream().map(obj -> obj.toResponse(obj)).collect(Collectors.toList());
     }
 
     @Transactional
     public ClienteResponse update(Long tecnicoId, @Valid ClienteRequest clienteRequest){
-        Cliente cliente = this.clienteRepository.findById(tecnicoId)
+        Cliente cliente = this.clientRepository.findById(tecnicoId)
                 .orElseThrow(() -> Message.ID_NOT_FOUND_TECNICO.asBusinessException());
 
         log.info("method=findById tecnicoId={}", tecnicoId);
@@ -70,13 +71,13 @@ public class ClienteService {
     }
 
     public void delete(Long tecnicoId) {
-        Cliente tecnico = this.clienteRepository.findById(tecnicoId)
+        Cliente tecnico = this.clientRepository.findById(tecnicoId)
                 .orElseThrow(() -> Message.ID_NOT_FOUND_TECNICO.asBusinessException());
         log.info("method=findById tecnicoId={}", tecnicoId);
 
         log.info("method=delete id={}", tecnicoId);
 
-        this.clienteRepository.delete(tecnico);
+        this.clientRepository.delete(tecnico);
 
     }
 

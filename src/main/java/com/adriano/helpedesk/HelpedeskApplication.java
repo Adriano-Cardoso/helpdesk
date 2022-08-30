@@ -1,6 +1,5 @@
 package com.adriano.helpedesk;
 
-import com.adriano.helpedesk.domain.Cliente;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
