@@ -29,7 +29,7 @@ public class PessoRequest {
     @NotNull(message = "O campo SENHA é requerido")
     protected String senha;
 
-    protected  Long chamadoId;
+    protected Long chamadoId;
 
     protected Set<String> perfis = new HashSet<>();
 

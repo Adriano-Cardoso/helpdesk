@@ -1,10 +1,9 @@
 package com.adriano.helpedesk.domain;
 
-import org.springframework.security.core.GrantedAuthority;
-
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import org.springframework.security.core.GrantedAuthority;
 
 import javax.persistence.*;
 
@@ -13,7 +12,7 @@ import javax.persistence.*;
 @NoArgsConstructor
 @Getter
 @Table(name = "tb_profiles")
-public class Profiles  implements GrantedAuthority {
+public class Profiles implements GrantedAuthority {
 
     private static final long serialVersionUID = 1L;
 

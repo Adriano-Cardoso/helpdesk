@@ -1,14 +1,14 @@
 package com.adriano.helpedesk.domain;
 
-import com.adriano.helpedesk.domain.enums.Perfil;
 import com.fasterxml.jackson.annotation.JsonFormat;
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.Setter;
 
 import javax.persistence.*;
 import java.io.Serializable;
 import java.time.LocalDate;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.*;
 
 @Getter
 @Setter
@@ -23,6 +23,7 @@ public abstract class Pessoa implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "pessoa_id")
     protected Long pessoaId;
+
     protected String nome;
 
     @Column(unique = true)
@@ -30,36 +31,32 @@ public abstract class Pessoa implements Serializable {
 
     @Column(unique = true)
     protected String email;
+
     protected String senha;
 
-    @ElementCollection(fetch = FetchType.EAGER)
-    @CollectionTable(name = "PERFIS")
-    protected Set<Integer> perfis = new HashSet<Integer>();
+    @Column(name = "profile_id", nullable = true, insertable = false, updatable = false)
+    protected Long profileId;
+
+    @OneToMany(cascade = { CascadeType.PERSIST, CascadeType.MERGE }, fetch = FetchType.EAGER)
+    @JoinColumn(name = "profile_id", referencedColumnName = "profile_id")
+    protected List<Profiles> profiles = new ArrayList<>();
 
     @JsonFormat(pattern = "dd/MM/yyyy")
     protected LocalDate dataCriacao = LocalDate.now();
 
-    public Pessoa() {
-        super();
-        addPerfil(Perfil.CLIENTE);
-    }
 
-    public void addPerfil(Perfil perfil) {
-        this.perfis.add(perfil.getCodigo());
-    }
-
-
-    public Pessoa(Long pessoaId, String nome, String cpf, String email, String senha) {
+    public Pessoa(Long pessoaId, String nome, String cpf, String email, String senha, Collection<Profiles> profiles) {
         super();
         this.pessoaId = pessoaId;
         this.nome = nome;
         this.cpf = cpf;
         this.email = email;
         this.senha = senha;
-        addPerfil(Perfil.CLIENTE);
+        this.profiles = new ArrayList<>();
+
     }
 
+    public Pessoa() {
 
-
-
+    }
 }

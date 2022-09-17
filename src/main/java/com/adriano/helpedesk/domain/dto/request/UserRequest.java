@@ -22,7 +22,7 @@ public class UserRequest {
     @ApiModelProperty(position = 2, required = false, value = "nome do usuario", name = "username", dataType = "String", example = "aluno")
     private String username;
 
-    @NotEmpty( message = "O campo 'password' esta incorreto no corpo da requisicao")
+    @NotEmpty(message = "O campo 'password' esta incorreto no corpo da requisicao")
     @ApiModelProperty(position = 3, required = false, value = "senha do usuario", name = "password", dataType = "String", example = "123456")
     private String password;
 }

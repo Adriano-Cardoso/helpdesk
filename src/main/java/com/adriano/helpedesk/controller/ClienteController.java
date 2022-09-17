@@ -1,9 +1,7 @@
 package com.adriano.helpedesk.controller;
 
 import com.adriano.helpedesk.domain.dto.request.ClienteRequest;
-import com.adriano.helpedesk.domain.dto.request.TecnicoRequest;
 import com.adriano.helpedesk.domain.dto.response.ClienteResponse;
-import com.adriano.helpedesk.domain.dto.response.TecnicoResponse;
 import com.adriano.helpedesk.service.ClienteService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -14,7 +12,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-@Api(value = "helpdesk Endpoint", description = "HelpDesk", tags = { "cliente Endpoint" })
+@Api(value = "cliente Endpoints", description = "HelpDesk", tags = {"cliente Endpoint"})
 @RestController
 @AllArgsConstructor
 @RequestMapping("/clientes")
@@ -34,6 +32,7 @@ public class ClienteController {
     public ResponseEntity<List<ClienteResponse>> findAllTecnico() {
         return ResponseEntity.status(HttpStatus.OK).body(this.clienteService.findAllCliente());
     }
+
     @ApiOperation(value = "Cria um novo cliente")
     @PostMapping
     public ResponseEntity<ClienteResponse> createTecnico(@RequestBody ClienteRequest clienteRequest) {
@@ -42,8 +41,8 @@ public class ClienteController {
 
     @ApiOperation(value = "Atualiza o cliente por id")
     @PutMapping("/{clienteId}")
-    public ResponseEntity<ClienteResponse> update(@PathVariable("tecnicoId") Long clienteId, @RequestBody ClienteRequest clienteRequest){
-        return ResponseEntity.status(HttpStatus.OK).body(this.clienteService.update(clienteId,clienteRequest));
+    public ResponseEntity<ClienteResponse> update(@PathVariable("tecnicoId") Long clienteId, @RequestBody ClienteRequest clienteRequest) {
+        return ResponseEntity.status(HttpStatus.OK).body(this.clienteService.update(clienteId, clienteRequest));
     }
 
     @ApiOperation(value = "Exclusão de cliente por id")

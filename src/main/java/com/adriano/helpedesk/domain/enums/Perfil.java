@@ -15,12 +15,12 @@ public enum Perfil {
     @Getter
     private String descricao;
 
-    public static Perfil toEnum(Perfil codigo){
-        if (codigo == null){
+    public static Perfil toEnum(Perfil codigo) {
+        if (codigo == null) {
             return null;
         }
-        for (Perfil x : Perfil.values()){
-            if (codigo.equals(x.getCodigo())){
+        for (Perfil x : Perfil.values()) {
+            if (codigo.equals(x.getCodigo())) {
                 return x;
             }
         }

@@ -1,6 +1,5 @@
 package com.adriano.helpedesk.service;
 
-
 import com.adriano.helpedesk.domain.Chamado;
 import com.adriano.helpedesk.domain.Cliente;
 import com.adriano.helpedesk.domain.Tecnico;
@@ -36,31 +35,31 @@ public class ChamadoService {
         called.addTecnico(tecnico);
 
         this.chamadoRepository.save(called);
-        return called.toResponse() ;
+        return called.toResponse();
     }
 
     public ChamadoResponse findByIdChamado(Long chamadoId) {
-        Chamado chamado = this.chamadoRepository.findById(chamadoId).orElseThrow(() -> Message.ID_NOT_FOUND_CHAMADO.asBusinessException());
+        Chamado chamado = this.chamadoRepository.findById(chamadoId)
+                .orElseThrow(() -> Message.ID_NOT_FOUND_CHAMADO.asBusinessException());
         return chamado.toResponse();
 
     }
 
-    public List<ChamadoResponse> findAllChamados(){
+    public List<ChamadoResponse> findAllChamados() {
         List<Chamado> chamadoList = this.chamadoRepository.findAll();
-        List<ChamadoResponse> chamadoResponseList = chamadoList.stream().map(c -> new ChamadoResponse(c)).collect(Collectors.toList());
+        List<ChamadoResponse> chamadoResponseList = chamadoList.stream()
+                .map(c -> new ChamadoResponse(c)).collect(Collectors.toList());
         return chamadoResponseList;
     }
 
     @Transactional
-    public ChamadoResponse update(Long chamadoId, @Valid ChamadoUpdateRequest chamadoUpdateRequest){
-        Chamado chamado = this.chamadoRepository.findById(chamadoId).orElseThrow(() -> Message.ID_NOT_FOUND_CHAMADO.asBusinessException());
+    public ChamadoResponse update(Long chamadoId, @Valid ChamadoUpdateRequest chamadoUpdateRequest) {
+        Chamado chamado = this.chamadoRepository.findById(chamadoId)
+                .orElseThrow(() -> Message.ID_NOT_FOUND_CHAMADO.asBusinessException());
 
         chamado.update(chamadoUpdateRequest);
 
         return chamado.toResponse();
 
     }
-
-
-
 }

@@ -22,14 +22,14 @@ public class ControlExceptionHandler {
 
     public static final String CONSTRAINT_VALIDATION_FAILED = "Constraint validation failed";
 
-    @ExceptionHandler(value = { BusinessException.class })
+    @ExceptionHandler(value = {BusinessException.class})
     protected ResponseEntity<Object> handleConflict(BusinessException ex, WebRequest request) {
         HttpHeaders responseHeaders = new HttpHeaders();
         return ResponseEntity.status(ex.getHttpStatusCode()).headers(responseHeaders).body(ex.getOnlyBody());
 
     }
 
-    @ExceptionHandler({ Throwable.class })
+    @ExceptionHandler({Throwable.class})
     public ResponseEntity<Object> handleException(Throwable eThrowable) {
 
         BusinessException ex = BusinessException.builder().httpStatusCode(HttpStatus.INTERNAL_SERVER_ERROR)
@@ -42,11 +42,10 @@ public class ControlExceptionHandler {
     }
 
     /**
-     *
      * @param request
      * @return
      */
-    @ExceptionHandler({ MethodArgumentTypeMismatchException.class })
+    @ExceptionHandler({MethodArgumentTypeMismatchException.class})
     public ResponseEntity<Object> handleMethodArgumentTypeMismatch(MethodArgumentTypeMismatchException exMethod,
                                                                    WebRequest request) {
 
@@ -59,7 +58,7 @@ public class ControlExceptionHandler {
         return ResponseEntity.status(ex.getHttpStatusCode()).headers(responseHeaders).body(ex.getOnlyBody());
     }
 
-    @ExceptionHandler({ ConstraintViolationException.class })
+    @ExceptionHandler({ConstraintViolationException.class})
     public ResponseEntity<Object> handleConstraintViolation(ConstraintViolationException exMethod, WebRequest request) {
         List<String> errors = new ArrayList<String>();
         for (ConstraintViolation<?> violation : exMethod.getConstraintViolations()) {
@@ -73,7 +72,7 @@ public class ControlExceptionHandler {
         return ResponseEntity.status(ex.getHttpStatusCode()).headers(responseHeaders).body(ex.getOnlyBody());
     }
 
-    @ExceptionHandler({ NotFoundException.class })
+    @ExceptionHandler({NotFoundException.class})
     public ResponseEntity<Object> handleNotFound(NotFoundException e) {
 
         BusinessException ex = BusinessException.builder().httpStatusCode(HttpStatus.NOT_FOUND)

@@ -1,10 +1,11 @@
 package com.adriano.helpedesk.service;
 
+import com.adriano.helpedesk.domain.Profiles;
 import com.adriano.helpedesk.domain.Tecnico;
 import com.adriano.helpedesk.domain.dto.request.TecnicoRequest;
 import com.adriano.helpedesk.domain.dto.response.TecnicoResponse;
-
 import com.adriano.helpedesk.exception.Message;
+import com.adriano.helpedesk.repository.ProfileRepository;
 import com.adriano.helpedesk.repository.TechnicianRepository;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -25,6 +26,8 @@ public class TecnicoService {
 
     private TechnicianRepository technicianRepository;
 
+    private ProfileRepository profileRepository;
+
     private BCryptPasswordEncoder encoder;
 
     public TecnicoResponse findById(Long tecnicoId) {
@@ -37,21 +40,26 @@ public class TecnicoService {
         return tecnico.toResponse(tecnico);
     }
 
-
     public TecnicoResponse createTecnico(@Valid TecnicoRequest tecnicoRequest) {
 
         this.technicianRepository.findByCpf(tecnicoRequest.getCpf()).ifPresent(c -> {
             throw Message.EXISTING_CPF.asBusinessException();
         });
 
+        Profiles profiles = this.profileRepository.findById(tecnicoRequest.getProfileId())
+                .orElseThrow(() -> Message.ID_PROFILE_NOT_FOUND.asBusinessException());
+
         Tecnico tecnico = Tecnico.of(tecnicoRequest);
+
         tecnico.setSenha(encoder.encode(tecnico.getSenha()));
 
-        tecnico = this.technicianRepository.save(tecnico);
+        tecnico.addProfile(profiles);
+
+        this.technicianRepository.save(tecnico);
 
         log.info("method=createTecnico pessoaId={} nome={} cpf={} email={} senha={} dataCriacao={} perfis={}",
-                tecnico.getPessoaId(), tecnico.getNome(), tecnico.getCpf(), tecnico.getEmail(), tecnico.getSenha(), tecnico.getDataCriacao(), tecnico.getPerfis());
-
+                tecnico.getPessoaId(), tecnico.getNome(), tecnico.getCpf(), tecnico.getEmail(), tecnico.getSenha(),
+                tecnico.getDataCriacao(), tecnico.getProfiles());
 
         return tecnico.toResponse(tecnico);
     }
@@ -66,7 +74,7 @@ public class TecnicoService {
         Tecnico tecnico = this.technicianRepository.findById(tecnicoId)
                 .orElseThrow(() -> Message.ID_NOT_FOUND_TECNICO.asBusinessException());
 
-        log.info("method=findById tecnicoId={}", tecnicoId);
+        log.info("method=update tecnicoId={} ", tecnicoId);
 
         tecnico.update(tecnicoRequest);
 
@@ -76,7 +84,6 @@ public class TecnicoService {
     public void delete(Long tecnicoId) {
         Tecnico tecnico = this.technicianRepository.findById(tecnicoId)
                 .orElseThrow(() -> Message.ID_NOT_FOUND_TECNICO.asBusinessException());
-        log.info("method=findById tecnicoId={}", tecnicoId);
 
         log.info("method=delete id={}", tecnicoId);
 

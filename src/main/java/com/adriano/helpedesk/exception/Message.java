@@ -9,10 +9,11 @@ public enum Message {
     ID_NOT_FOUND_CLIENTE("O cliente nao foi encontrado", HttpStatus.NOT_FOUND),
     ID_NOT_FOUND_CHAMADO("O chamado nao foi encontrado", HttpStatus.NOT_FOUND),
     EXISTING_CPF("O CPF digitado já existe me nossa base de dados", HttpStatus.BAD_REQUEST),
-    TOKEN_ERROR("Token inválido", HttpStatus.FORBIDDEN ),
+    TOKEN_ERROR("Token inválido", HttpStatus.FORBIDDEN),
     NOT_FOT_USER_PERMISSION("Não autorizado", HttpStatus.FORBIDDEN),
-    IS_PRESENT_USER("O TOKEN existe para esse usuário ", HttpStatus.BAD_REQUEST ),
-    NAME_PROFILE_NOT_FOUND("Perfil não encontrado ", HttpStatus.NOT_FOUND );
+    IS_PRESENT_USER("O TOKEN existe para esse usuário ", HttpStatus.BAD_REQUEST),
+    NAME_PROFILE_NOT_FOUND("Perfil não encontrado ", HttpStatus.NOT_FOUND),
+    ID_PROFILE_NOT_FOUND("ID não encontrado",  HttpStatus.NOT_FOUND);
 
     private String value;
     private String description;

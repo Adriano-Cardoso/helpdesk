@@ -27,7 +27,7 @@ public class LoginService {
 
     public LoginResponse auth(@Valid LoginRequest loginRequest) {
 
-        Authentication authentication = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(loginRequest.getEmail(),loginRequest.getPassword()));
+        Authentication authentication = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(loginRequest.getEmail(), loginRequest.getPassword()));
 
         String token = jwtTokenProvider.createToken(loginRequest.getEmail(), authentication.getAuthorities().stream()
                 .map(GrantedAuthority::getAuthority).collect(Collectors.toList()));

@@ -6,9 +6,12 @@ import lombok.*;
 import org.hibernate.validator.constraints.br.CPF;
 
 import javax.validation.constraints.NotEmpty;
-import javax.validation.constraints.NotNull;;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 import java.util.HashSet;
 import java.util.Set;
+
+;
 
 @AllArgsConstructor
 @NoArgsConstructor
@@ -38,5 +41,6 @@ public class TecnicoRequest {
     @ApiModelProperty(position = 5, required = false, value = "senha do tecnico", name = "senha", dataType = "String", example = "lu123")
     private String senha;
 
-    private Set<String> perfis = new HashSet<>();
+//    @Size(min = 1,  max = 4,  message = "O valor do campo 'profileId' '${validatedValue}' deve estar entre {min} e {max} caracteres")
+    private Long profileId;
 }

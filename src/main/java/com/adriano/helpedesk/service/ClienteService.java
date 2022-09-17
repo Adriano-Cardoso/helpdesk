@@ -35,7 +35,6 @@ public class ClienteService {
         return cliente.toResponse(cliente);
     }
 
-
     public ClienteResponse createCliente(@Valid ClienteRequest clienteRequest) {
 
         this.clientRepository.findByCpf(clienteRequest.getCpf()).ifPresent(c -> {
@@ -47,8 +46,8 @@ public class ClienteService {
         cliente = this.clientRepository.save(cliente);
 
         log.info("method=createCliente pessoaId={} nome={} cpf={} email={} senha={} dataCriacao={} perfis={}",
-                cliente.getPessoaId(), cliente.getNome(), cliente.getCpf(), cliente.getEmail(), cliente.getSenha(), cliente.getDataCriacao(), cliente.getPerfis());
-
+                cliente.getPessoaId(), cliente.getNome(), cliente.getCpf(), cliente.getEmail(),
+                cliente.getSenha(), cliente.getDataCriacao(), cliente.getProfiles());
 
         return cliente.toResponse(cliente);
     }
@@ -59,7 +58,7 @@ public class ClienteService {
     }
 
     @Transactional
-    public ClienteResponse update(Long tecnicoId, @Valid ClienteRequest clienteRequest){
+    public ClienteResponse update(Long tecnicoId, @Valid ClienteRequest clienteRequest) {
         Cliente cliente = this.clientRepository.findById(tecnicoId)
                 .orElseThrow(() -> Message.ID_NOT_FOUND_TECNICO.asBusinessException());
 

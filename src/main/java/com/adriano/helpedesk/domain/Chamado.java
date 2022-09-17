@@ -7,7 +7,10 @@ import com.adriano.helpedesk.domain.enums.Perfil;
 import com.adriano.helpedesk.domain.enums.Prioridade;
 import com.adriano.helpedesk.domain.enums.Status;
 import com.fasterxml.jackson.annotation.JsonFormat;
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import javax.persistence.*;
 import java.time.LocalDate;
@@ -71,8 +74,8 @@ public class Chamado {
         this.cliente = cliente;
     }
 
-    public static Chamado of(ChamadoRequest chamadoRequest){
-        Chamado chamado =  new Chamado();
+    public static Chamado of(ChamadoRequest chamadoRequest) {
+        Chamado chamado = new Chamado();
         chamado.dataFechamento = chamadoRequest.getDataFechamento();
         chamado.prioridade = chamadoRequest.getPrioridade();
         chamado.status = chamadoRequest.getStatus();
@@ -99,7 +102,7 @@ public class Chamado {
     }
 
     public void addCliente(Cliente cliente) {
-        cliente.getPerfis()
+        cliente.getProfiles()
                 .stream()
                 .filter(perfil -> perfil.equals(Perfil.CLIENTE))
                 .forEach(perfil -> this.cliente.getPessoaId().equals(tecnico.getPessoaId()));
@@ -107,14 +110,14 @@ public class Chamado {
     }
 
     public void addTecnico(Tecnico tecnico) {
-        tecnico.getPerfis()
+        tecnico.getProfiles()
                 .stream()
                 .filter(perfil -> perfil.equals(Perfil.TECNICO))
                 .forEach(perfil -> this.tecnico.getPessoaId().equals(tecnico.getPessoaId()));
 
     }
 
-    public void update(ChamadoUpdateRequest chamadoUpdateRequest){
+    public void update(ChamadoUpdateRequest chamadoUpdateRequest) {
         this.dataFechamento = chamadoUpdateRequest.getDataFechamento();
         this.prioridade = chamadoUpdateRequest.getPrioridade();
         this.observacoes = chamadoUpdateRequest.getObeservacoes();

@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-@Api(value = "helpdesk Endpoint", description = "HelpDesk", tags = {"Chamados Endpoint"})
+@Api(value = "chamados Endpoint", description = "HelpDesk", tags = {"Chamados Endpoint"})
 @RestController
 @AllArgsConstructor
 @RequestMapping("/chamados")
@@ -41,7 +41,7 @@ public class ChamadoController {
     }
 
     @PatchMapping("/{chamadoId}")
-    public ResponseEntity<ChamadoResponse> update(@PathVariable("chamadoId")Long chamadoId, @RequestBody ChamadoUpdateRequest chamadoUpdateRequest) {
+    public ResponseEntity<ChamadoResponse> update(@PathVariable("chamadoId") Long chamadoId, @RequestBody ChamadoUpdateRequest chamadoUpdateRequest) {
         return ResponseEntity.status(HttpStatus.OK).body(this.chamadoService.update(chamadoId, chamadoUpdateRequest));
     }
 
