@@ -1,8 +1,8 @@
 package com.adriano.helpedesk.domain.dto.response;
 
+
 import com.adriano.helpedesk.domain.Chamado;
 import com.adriano.helpedesk.domain.enums.Prioridade;
-import com.adriano.helpedesk.domain.enums.Status;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.*;
 

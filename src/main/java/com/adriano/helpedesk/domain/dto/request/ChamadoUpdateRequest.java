@@ -1,7 +1,6 @@
 package com.adriano.helpedesk.domain.dto.request;
 
 import com.adriano.helpedesk.domain.enums.Prioridade;
-import com.adriano.helpedesk.domain.enums.Status;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.AllArgsConstructor;
 import lombok.Getter;

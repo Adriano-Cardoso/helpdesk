@@ -1,6 +1,7 @@
 package com.adriano.helpedesk.domain.dto.response;
 
 
+import com.adriano.helpedesk.domain.Profiles;
 import lombok.*;
 
 import java.util.HashSet;
@@ -18,9 +19,7 @@ public class ClienteResponse {
     protected String cpf;
     protected String email;
     protected String senha;
-    protected Set<Integer> perfis = new HashSet<>();
-
-
+    protected Long profileId;
 
 
 }

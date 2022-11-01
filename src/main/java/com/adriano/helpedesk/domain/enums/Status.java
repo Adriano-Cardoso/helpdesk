@@ -15,12 +15,12 @@ public enum Status {
     @Getter
     private String descricao;
 
-    public static Status toEnum(Integer codigo){
-        if (codigo == null){
+    public static Status toEnum(Integer codigo) {
+        if (codigo == null) {
             return null;
         }
-        for (Status x : Status.values()){
-            if (codigo.equals(x.getCodigo())){
+        for (Status x : Status.values()) {
+            if (codigo.equals(x.getCodigo())) {
                 return x;
             }
         }

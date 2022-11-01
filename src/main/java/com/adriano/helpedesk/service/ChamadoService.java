@@ -13,7 +13,6 @@ import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
 import javax.validation.Valid;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -25,42 +24,42 @@ public class ChamadoService {
 
     public ChamadoResponse save(ChamadoRequest chamadoRequest) {
 
-        Chamado chamado = Chamado.of(chamadoRequest);
+        Chamado called = Chamado.of(chamadoRequest);
 
         Cliente cliente = new Cliente();
 
         Tecnico tecnico = new Tecnico();
 
-        chamado.addCliente(cliente);
+        called.addCliente(cliente);
 
-        chamado.addTecnico(tecnico);
+        called.addTecnico(tecnico);
 
-        this.chamadoRepository.save(chamado);
-        return chamado.toResponse() ;
+        this.chamadoRepository.save(called);
+        return called.toResponse();
     }
 
     public ChamadoResponse findByIdChamado(Long chamadoId) {
-        Chamado chamado = this.chamadoRepository.findById(chamadoId).orElseThrow(() -> Message.ID_NOT_FOUND_CHAMADO.asBusinessException());
+        Chamado chamado = this.chamadoRepository.findById(chamadoId)
+                .orElseThrow(() -> Message.ID_NOT_FOUND_CHAMADO.asBusinessException());
         return chamado.toResponse();
 
     }
 
-    public List<ChamadoResponse> findAllChamados(){
+    public List<ChamadoResponse> findAllChamados() {
         List<Chamado> chamadoList = this.chamadoRepository.findAll();
-        List<ChamadoResponse> chamadoResponseList = chamadoList.stream().map(c -> new ChamadoResponse(c)).collect(Collectors.toList());
+        List<ChamadoResponse> chamadoResponseList = chamadoList.stream()
+                .map(c -> new ChamadoResponse(c)).collect(Collectors.toList());
         return chamadoResponseList;
     }
 
     @Transactional
-    public ChamadoResponse update(Long chamadoId, @Valid ChamadoUpdateRequest chamadoUpdateRequest){
-        Chamado chamado = this.chamadoRepository.findById(chamadoId).orElseThrow(() -> Message.ID_NOT_FOUND_CHAMADO.asBusinessException());
+    public ChamadoResponse update(Long chamadoId, @Valid ChamadoUpdateRequest chamadoUpdateRequest) {
+        Chamado chamado = this.chamadoRepository.findById(chamadoId)
+                .orElseThrow(() -> Message.ID_NOT_FOUND_CHAMADO.asBusinessException());
 
         chamado.update(chamadoUpdateRequest);
 
         return chamado.toResponse();
 
     }
-
-
-
 }

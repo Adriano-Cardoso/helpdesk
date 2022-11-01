@@ -1,15 +1,9 @@
 package com.adriano.helpedesk.exception;
 
-import org.springframework.http.HttpStatus;
-
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
-
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.EqualsAndHashCode;
-import lombok.NoArgsConstructor;
+import lombok.*;
+import org.springframework.http.HttpStatus;
 
 @Data
 @Builder
@@ -17,7 +11,7 @@ import lombok.NoArgsConstructor;
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @EqualsAndHashCode(callSuper = false)
 
-public class BusinessException extends RuntimeException  {
+public class BusinessException extends RuntimeException {
 
     private static final long serialVersionUID = 1L;
 

@@ -8,14 +8,15 @@ import io.swagger.annotations.ApiOperation;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-@Api(value = "helpdesk Endpoint", description = "HelpDesk", tags = { "Tecnico Endpoint" })
+@Api(value = "Tecnico Endpoints", description = "HelpDesk", tags = {"Tecnico Endpoint"})
 @RestController
 @AllArgsConstructor
-@RequestMapping("/tecnico")
+@RequestMapping("/tecnicos")
 public class TecnicoController {
 
 
@@ -32,19 +33,23 @@ public class TecnicoController {
     public ResponseEntity<List<TecnicoResponse>> findAllTecnico() {
         return ResponseEntity.status(HttpStatus.OK).body(this.tecnicoService.findAllTecnico());
     }
+
     @ApiOperation(value = "Cria um novo tecnico")
+//    @PreAuthorize("hasAnyRole('ADMIN')")
     @PostMapping
     public ResponseEntity<TecnicoResponse> createTecnico(@RequestBody TecnicoRequest tecnicoRequest) {
         return ResponseEntity.status(HttpStatus.CREATED).body(this.tecnicoService.createTecnico(tecnicoRequest));
     }
 
     @ApiOperation(value = "Atualiza o tecnico por id")
+//    @PreAuthorize("hasAnyRole('ADMIN')")
     @PutMapping("/{tecnicoId}")
-    public ResponseEntity<TecnicoResponse> update(@PathVariable("tecnicoId") Long tecnicoId, @RequestBody TecnicoRequest tecnicoRequest){
-        return ResponseEntity.status(HttpStatus.OK).body(this.tecnicoService.update(tecnicoId,tecnicoRequest));
+    public ResponseEntity<TecnicoResponse> update(@PathVariable("tecnicoId") Long tecnicoId, @RequestBody TecnicoRequest tecnicoRequest) {
+        return ResponseEntity.status(HttpStatus.OK).body(this.tecnicoService.update(tecnicoId, tecnicoRequest));
     }
 
     @ApiOperation(value = "Exclusão de tecnico por id")
+//    @PreAuthorize("hasAnyRole('ADMIN')")
     @DeleteMapping("/{tecnicoId}")
     public ResponseEntity<TecnicoResponse> delete(@PathVariable("tecnicoId") Long tecnicoId) {
         this.tecnicoService.delete(tecnicoId);
