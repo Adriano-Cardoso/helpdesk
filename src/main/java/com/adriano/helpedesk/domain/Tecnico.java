@@ -2,6 +2,7 @@ package com.adriano.helpedesk.domain;
 
 import com.adriano.helpedesk.domain.dto.request.TecnicoRequest;
 import com.adriano.helpedesk.domain.dto.response.TecnicoResponse;
+import com.adriano.helpedesk.domain.enums.Perfil;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
 
@@ -11,7 +12,9 @@ import javax.persistence.PrePersist;
 import javax.persistence.Table;
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 @AllArgsConstructor
 @Getter
@@ -45,21 +48,20 @@ public class Tecnico extends Pessoa {
         tecnico.cpf = tecnicoRequest.getCpf();
         tecnico.email = tecnicoRequest.getEmail();
         tecnico.senha = tecnicoRequest.getSenha();
-        tecnico.profileId = tecnicoRequest.getProfileId();
 
         return tecnico;
     }
 
-    public TecnicoResponse toResponse(Tecnico tecnico) {
-        TecnicoResponse tecnicoResponse = new TecnicoResponse();
-        tecnicoResponse.setId(tecnico.getPessoaId());
-        tecnicoResponse.setNome(tecnico.getNome());
-        tecnicoResponse.setCpf(tecnico.getCpf());
-        tecnicoResponse.setEmail(tecnico.getEmail());
-        tecnicoResponse.setSenha(tecnico.getSenha());
-        tecnicoResponse.setProfileId(tecnico.getProfileId());
+    public TecnicoResponse toResponse() {
+        return TecnicoResponse.builder()
+                .id(this.getPessoaId())
+                .nome(this.getNome())
+                .cpf(this.getCpf())
+                .email(this.getEmail())
+                .senha(this.getSenha())
+                .perfis(this.getPerfis()).build();
 
-        return tecnicoResponse;
+
     }
 
     public void update(TecnicoRequest tecnicoRequest) {
@@ -69,9 +71,11 @@ public class Tecnico extends Pessoa {
         this.senha = tecnicoRequest.getSenha();
     }
 
-    public void addProfile(Profiles profiles){
-        this.profiles = new ArrayList<Profiles>();
-        this.profileId = profiles.getProfileId();
+    public void addProfile(Perfil perfil){
+        if (this.perfis == null){
+            this.perfis = new HashSet<>();
+        }
+        this.perfis.add(perfil.getCodigo());
     }
 
 

@@ -1,0 +1,12 @@
+com/adriano/helpedesk/domain/dto/request/TecnicoRequest.class
+com/adriano/helpedesk/domain/dto/request/TecnicoRequest$TecnicoRequestBuilder.class
+com/adriano/helpedesk/domain/Tecnico.class
+com/adriano/helpedesk/domain/Profiles.class
+com/adriano/helpedesk/domain/dto/response/UserResponse.class
+com/adriano/helpedesk/domain/Pessoa.class
+com/adriano/helpedesk/domain/dto/response/UserResponse$UserResponseBuilder.class
+com/adriano/helpedesk/config/security/JwtTokenFilter.class
+com/adriano/helpedesk/domain/User$UserBuilder.class
+com/adriano/helpedesk/config/security/JwtTokenProvider.class
+com/adriano/helpedesk/domain/Tecnico$TecnicoBuilder.class
+com/adriano/helpedesk/domain/User.class

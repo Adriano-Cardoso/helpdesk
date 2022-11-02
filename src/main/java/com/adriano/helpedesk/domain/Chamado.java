@@ -102,7 +102,7 @@ public class Chamado {
     }
 
     public void addCliente(Cliente cliente) {
-        cliente.getProfiles()
+        cliente.getPerfis()
                 .stream()
                 .filter(perfil -> perfil.equals(Perfil.CLIENTE))
                 .forEach(perfil -> this.cliente.getPessoaId().equals(tecnico.getPessoaId()));
@@ -110,7 +110,7 @@ public class Chamado {
     }
 
     public void addTecnico(Tecnico tecnico) {
-        tecnico.getProfiles()
+        tecnico.getPerfis()
                 .stream()
                 .filter(perfil -> perfil.equals(Perfil.TECNICO))
                 .forEach(perfil -> this.tecnico.getPessoaId().equals(tecnico.getPessoaId()));
