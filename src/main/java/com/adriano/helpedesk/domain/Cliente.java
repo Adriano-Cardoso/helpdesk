@@ -1,12 +1,10 @@
 package com.adriano.helpedesk.domain;
 
 import com.adriano.helpedesk.domain.dto.request.ClienteRequest;
+import com.adriano.helpedesk.domain.dto.request.ClienteUpdateRequest;
 import com.adriano.helpedesk.domain.dto.response.ClienteResponse;
-import com.adriano.helpedesk.domain.enums.Perfil;
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import lombok.AllArgsConstructor;
 import lombok.Getter;
-import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.Entity;
@@ -17,7 +15,6 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
-import java.util.Set;
 
 
 @Getter
@@ -53,29 +50,26 @@ public class Cliente extends Pessoa {
         cliente.cpf = clienteRequest.getCpf();
         cliente.email = clienteRequest.getEmail();
         cliente.senha = clienteRequest.getSenha();
-        cliente.profileId = clienteRequest.getProfileId();
+        cliente.perfis = clienteRequest.getPerfis();
 
         return cliente;
 
     }
 
-    public ClienteResponse toResponse(Cliente cliente) {
-        ClienteResponse clienteResponse = new ClienteResponse();
-        clienteResponse.setId(cliente.getPessoaId());
-        clienteResponse.setNome(cliente.getNome());
-        clienteResponse.setCpf(cliente.getCpf());
-        clienteResponse.setEmail(cliente.getEmail());
-        clienteResponse.setSenha(cliente.getSenha());
-        clienteResponse.setProfileId(cliente.getProfileId());
 
-        return clienteResponse;
+    public ClienteResponse toResponse() {
+        return ClienteResponse.builder()
+                .id(this.getPessoaId())
+                .nome(this.getNome())
+                .cpf(this.getCpf())
+                .email(this.getEmail())
+                .senha(this.getSenha())
+                .perfis(this.getPerfis()).build();
+
     }
 
-    public void update(ClienteRequest clienteRequest) {
-        this.nome = clienteRequest.getNome();
-        this.cpf = clienteRequest.getCpf();
+    public void update(ClienteUpdateRequest clienteRequest) {
         this.email = clienteRequest.getEmail();
-        this.senha = clienteRequest.getSenha();
     }
 
 

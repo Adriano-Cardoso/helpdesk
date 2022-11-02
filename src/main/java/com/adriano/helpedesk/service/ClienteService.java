@@ -2,6 +2,7 @@ package com.adriano.helpedesk.service;
 
 import com.adriano.helpedesk.domain.Cliente;
 import com.adriano.helpedesk.domain.dto.request.ClienteRequest;
+import com.adriano.helpedesk.domain.dto.request.ClienteUpdateRequest;
 import com.adriano.helpedesk.domain.dto.response.ClienteResponse;
 import com.adriano.helpedesk.exception.Message;
 import com.adriano.helpedesk.repository.ClientRepository;
@@ -28,12 +29,13 @@ public class ClienteService {
 
     public ClienteResponse findById(Long clienteId) {
         Cliente cliente = this.clientRepository.findById(clienteId)
-                .orElseThrow(() -> Message.ID_NOT_FOUND_TECNICO.asBusinessException());
+                .orElseThrow(Message.ID_NOT_FOUND::asBusinessException);
 
         log.info("method=findById clienteId={}", clienteId);
 
-        return cliente.toResponse(cliente);
+        return cliente.toResponse();
     }
+
 
     public ClienteResponse createCliente(@Valid ClienteRequest clienteRequest) {
 
@@ -47,37 +49,45 @@ public class ClienteService {
 
         log.info("method=createCliente pessoaId={} nome={} cpf={} email={} senha={} dataCriacao={} perfis={}",
                 cliente.getPessoaId(), cliente.getNome(), cliente.getCpf(), cliente.getEmail(),
-                cliente.getSenha(), cliente.getDataCriacao(), cliente.getProfiles());
+                cliente.getSenha(), cliente.getDataCriacao(), cliente.getPerfis());
 
-        return cliente.toResponse(cliente);
+        return cliente.toResponse();
     }
 
     public List<ClienteResponse> findAllCliente() {
         List<Cliente> list = this.clientRepository.findAll();
-        return list.stream().map(obj -> obj.toResponse(obj)).collect(Collectors.toList());
+        return list.stream().map(obj -> obj.toResponse()).collect(Collectors.toList());
     }
 
     @Transactional
-    public ClienteResponse update(Long tecnicoId, @Valid ClienteRequest clienteRequest) {
-        Cliente cliente = this.clientRepository.findById(tecnicoId)
-                .orElseThrow(() -> Message.ID_NOT_FOUND_TECNICO.asBusinessException());
+    public ClienteResponse update(Long clienteId, @Valid ClienteUpdateRequest clienteRequest) {
+        Cliente cliente = this.clientRepository.findById(clienteId)
+                .orElseThrow(() -> Message.ID_NOT_FOUND.asBusinessException());
 
-        log.info("method=findById tecnicoId={}", tecnicoId);
+        log.info("method=findById clienteId={}", clienteId);
 
         cliente.update(clienteRequest);
 
-        return cliente.toResponse(cliente);
+        return cliente.toResponse();
     }
 
-    public void delete(Long tecnicoId) {
-        Cliente tecnico = this.clientRepository.findById(tecnicoId)
-                .orElseThrow(() -> Message.ID_NOT_FOUND_TECNICO.asBusinessException());
-        log.info("method=findById tecnicoId={}", tecnicoId);
+    public void delete(Long clienteId) {
+        Cliente cliente = this.clientRepository.findById(clienteId)
+                .orElseThrow(Message.ID_NOT_FOUND::asBusinessException);
+        log.info("method=findById clienteId={}", clienteId);
 
-        log.info("method=delete id={}", tecnicoId);
+        log.info("method=delete id={}", clienteId);
 
-        this.clientRepository.delete(tecnico);
+        this.clientRepository.delete(cliente);
 
+    }
+
+    public String FindByEmail(String email){
+        clientRepository.findByEmail(email).ifPresent(c -> {
+            throw Message.EMAIL_EXISTS.asBusinessException();
+        });
+
+        return email;
     }
 
 }

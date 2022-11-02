@@ -34,12 +34,9 @@ public abstract class Pessoa implements Serializable {
 
     protected String senha;
 
-    @Column(name = "profile_id", nullable = true, insertable = false, updatable = false)
-    protected Long profileId;
-
-    @OneToMany(cascade = { CascadeType.PERSIST, CascadeType.MERGE }, fetch = FetchType.EAGER)
-    @JoinColumn(name = "profile_id", referencedColumnName = "profile_id")
-    protected List<Profiles> profiles = new ArrayList<>();
+    @ElementCollection(fetch = FetchType.EAGER)
+    @CollectionTable(name = "PERFIS")
+    protected Set<Integer> perfis = new HashSet<>();
 
     @JsonFormat(pattern = "dd/MM/yyyy")
     protected LocalDate dataCriacao = LocalDate.now();
@@ -52,7 +49,7 @@ public abstract class Pessoa implements Serializable {
         this.cpf = cpf;
         this.email = email;
         this.senha = senha;
-        this.profiles = new ArrayList<>();
+        this.perfis = new HashSet<>();
 
     }
 

@@ -19,7 +19,7 @@ public class ClienteResponse {
     protected String cpf;
     protected String email;
     protected String senha;
-    protected Long profileId;
+    private Set<Integer> perfis = new HashSet<>();
 
 
 }

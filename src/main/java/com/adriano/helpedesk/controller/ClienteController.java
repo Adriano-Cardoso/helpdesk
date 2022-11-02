@@ -1,6 +1,7 @@
 package com.adriano.helpedesk.controller;
 
 import com.adriano.helpedesk.domain.dto.request.ClienteRequest;
+import com.adriano.helpedesk.domain.dto.request.ClienteUpdateRequest;
 import com.adriano.helpedesk.domain.dto.response.ClienteResponse;
 import com.adriano.helpedesk.service.ClienteService;
 import io.swagger.annotations.Api;
@@ -40,15 +41,15 @@ public class ClienteController {
     }
 
     @ApiOperation(value = "Atualiza o cliente por id")
-    @PutMapping("/{clienteId}")
-    public ResponseEntity<ClienteResponse> update(@PathVariable("tecnicoId") Long clienteId, @RequestBody ClienteRequest clienteRequest) {
+    @PatchMapping("/{clienteId}")
+    public ResponseEntity<ClienteResponse> update(@PathVariable("clienteId") Long clienteId, @RequestBody ClienteUpdateRequest clienteRequest) {
         return ResponseEntity.status(HttpStatus.OK).body(this.clienteService.update(clienteId, clienteRequest));
     }
 
     @ApiOperation(value = "Exclusão de cliente por id")
     @DeleteMapping("/{clienteId}")
-    public ResponseEntity<ClienteResponse> delete(@PathVariable("clienteId") Long tecnicoId) {
-        this.clienteService.delete(tecnicoId);
+    public ResponseEntity<ClienteResponse> delete(@PathVariable("clienteId") Long clienteId) {
+        this.clienteService.delete(clienteId);
         return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
     }
 }

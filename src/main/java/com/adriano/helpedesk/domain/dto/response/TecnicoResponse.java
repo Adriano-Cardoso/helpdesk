@@ -29,7 +29,7 @@ public class TecnicoResponse {
     @JsonFormat(pattern = "dd/MM/yyyy")
     protected LocalDate dataCriacao = LocalDate.now();
 
-    private Long profileId;
+    private Set<Integer> perfis = new HashSet<>();
 
 
 }
