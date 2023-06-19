@@ -14,7 +14,6 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 @AllArgsConstructor
 @Getter
@@ -48,6 +47,7 @@ public class Tecnico extends Pessoa {
         tecnico.cpf = tecnicoRequest.getCpf();
         tecnico.email = tecnicoRequest.getEmail();
         tecnico.senha = tecnicoRequest.getSenha();
+        tecnico.perfis = tecnicoRequest.getPerfis();
 
         return tecnico;
     }
@@ -59,6 +59,7 @@ public class Tecnico extends Pessoa {
                 .cpf(this.getCpf())
                 .email(this.getEmail())
                 .senha(this.getSenha())
+                .dataCriacao(this.dataCriacao)
                 .perfis(this.getPerfis()).build();
 
 

@@ -80,7 +80,7 @@ public class Chamado {
         chamado.prioridade = chamadoRequest.getPrioridade();
         chamado.status = chamadoRequest.getStatus();
         chamado.titulo = chamadoRequest.getTitulo();
-        chamado.observacoes = chamadoRequest.getObeservacoes();
+        chamado.observacoes = chamadoRequest.getObservacoes();
 
         return chamado;
     }
@@ -120,6 +120,6 @@ public class Chamado {
     public void update(ChamadoUpdateRequest chamadoUpdateRequest) {
         this.dataFechamento = chamadoUpdateRequest.getDataFechamento();
         this.prioridade = chamadoUpdateRequest.getPrioridade();
-        this.observacoes = chamadoUpdateRequest.getObeservacoes();
+        this.observacoes = chamadoUpdateRequest.getObservacoes();
     }
 }
