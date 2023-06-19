@@ -1,0 +1,21 @@
+# railway.yml
+
+build:
+  steps:
+    - name: Install JDK
+      command: |
+        apt-get install -y openjdk-11-jdk
+
+    - name: Build
+      command: |
+        ./mvnw clean package
+
+env:
+  JAVA_VERSION: "11"
+  PORT: 8080
+
+deploy:
+  steps:
+    - name: Start Application
+      command: |
+        java -jar target/nome-do-seu-arquivo.jar
