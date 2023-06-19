@@ -18,4 +18,4 @@ deploy:
   steps:
     - name: Start Application
       command: |
-        java -jar target/nome-do-seu-arquivo.jar
+        java -jar target/challange.backend-1.0.0-SNAPSHOT.jar
